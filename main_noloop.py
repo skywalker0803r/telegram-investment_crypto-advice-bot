@@ -15,6 +15,12 @@ chatID = os.getenv("CHAT_ID")
 api_key = os.getenv("API_KEY")
 api_secret = os.getenv("API_SECRET")
 
+# 逐一檢查環境變數是否正確載入
+print("API_TOKEN:", os.getenv("API_TOKEN"))
+print("CHAT_ID:", os.getenv("CHAT_ID"))
+print("API_KEY:", os.getenv("API_KEY"))
+print("API_SECRET:", os.getenv("API_SECRET"))
+
 client = Client(api_key=api_key,api_secret=api_secret)
 
 pair='DOGEUSDT'
