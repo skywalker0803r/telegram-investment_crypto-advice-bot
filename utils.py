@@ -7,38 +7,34 @@ import pandas as pd
 from binance import Client
 import requests
 
-# 建立客戶端
-api_key = ''
-api_secret = ''
-client = Client(api_key=api_key,api_secret=api_secret)
-
 # 定義下單函數
-def place_order(side,client=client,quantity = 0.001):
-    if side == 'BUY':
-       print('buy quantity',quantity)
-       order = client.create_order(symbol='BTCUSDT',side=SIDE_BUY,type=ORDER_TYPE_MARKET,quantity=quantity)
-    if side == 'SELL':
-       print('sell quantity',quantity)
-       order = client.create_order(symbol='BTCUSDT',side=SIDE_SELL,type=ORDER_TYPE_MARKET,quantity=quantity)
-    return order
-
+def place_order(symbol,side,client,quantity = 0.001):
+    try:
+       if side == 'BUY':
+          order = client.create_order(symbol=symbol,side=SIDE_BUY,type=ORDER_TYPE_MARKET,quantity=quantity)
+       if side == 'SELL':
+          order = client.create_order(symbol=symbol,side=SIDE_SELL,type=ORDER_TYPE_MARKET,quantity=quantity)
+       return order
+    except Exception as e:
+       print(f'place_order error : {e}',)
+       return e
+    
 # 定義發送電報函數
-def send_to_telegram(message):
-    apiToken = ''
-    chatID = ''
+def send_to_telegram(message,apiToken,chatID):
     apiURL = f'https://api.telegram.org/bot{apiToken}/sendMessage'
     try:
         response = requests.post(apiURL, json={'chat_id': chatID, 'text': message})
-        print(response.text)
+        return response
     except Exception as e:
-        print(e)
+        print(f'send_to_telegram error: {e}')
+        return e
 
 # 定義漲跌訊號函數
 def get_signal(
       pair='BTCUSDT',
       freq='15m',
       n_bar = 10000,
-      client = client
+      client = None,
       ):
   # get the pair ohlcv data
   ohlcv = finlab_crypto.crawler.get_nbars_binance(pair,freq,n_bar,client)
@@ -92,7 +88,7 @@ def get_signal_fast(
       pair='BTCUSDT',
       freq='15m',
       n_bar = 10000,
-      client = client,
+      client = None,
       n1 = 65,
       n2 = 95,
       ):
@@ -119,4 +115,4 @@ def get_signal_fast(
   if table[['sell']].values[0][0] == 1:
      signal = 'SELL'
   
-  return signal,n1,n2
+  return signal,n1,n2,table['close'].values[-1]
