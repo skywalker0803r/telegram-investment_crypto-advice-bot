@@ -9,6 +9,11 @@ chatID = "1567262377"
 api_key = "hGo9QzLRDRzHknp820Npo480n62A5dEjOTBt3HXfddNrIuBXvHuibmuGcKor3b1l"
 api_secret = "1TNlq4E0ZWSvD1odE15r6uL0yRNWPiOQRr1BDifMiSpJraNIqCLLcdWhWqJJHQuL" 
 client = Client(api_key=api_key,api_secret=api_secret)
+print(apiToken)
+print(chatID)
+print(api_key)
+print(api_secret)
+
 
 # TRADING SETTING
 pair='DOGEUSDT'
