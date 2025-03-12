@@ -16,6 +16,7 @@ api_key = os.getenv("API_KEY")
 api_secret = os.getenv("API_SECRET")
 
 # 逐一檢查環境變數是否正確載入
+print("當前載入環境變數")
 print("API_TOKEN:", os.getenv("API_TOKEN"))
 print("CHAT_ID:", os.getenv("CHAT_ID"))
 print("API_KEY:", os.getenv("API_KEY"))
@@ -37,9 +38,9 @@ if __name__ == '__main__':
 
     message = f"交易對:{pair}\n當前價格:{price}\n多空:{side}\n雙均線參數: n1 {n1} n2 {n2}\n現在時間:{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
     print(message)
-    send_to_telegram(message,apiToken,chatID)
+    print(send_to_telegram(message,apiToken,chatID))
         
     if side != 'PASS':
         order_result = place_order(symbol=pair,side='SELL',client=client,quantity = quantity)
         print(order_result)
-        send_to_telegram(f'執行下單函數結果:{order_result}\n',apiToken,chatID)
+        print(send_to_telegram(f'執行下單函數結果:{order_result}\n',apiToken,chatID))
