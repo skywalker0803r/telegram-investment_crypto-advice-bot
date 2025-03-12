@@ -1,22 +1,17 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 from utils import place_order,send_to_telegram,get_signal,get_signal_fast
 import time
 import os
 from datetime import datetime
-from dotenv import load_dotenv
 from binance.client import Client
 
-load_dotenv()
-
-apiToken = os.getenv("API_TOKEN")
-chatID = os.getenv("CHAT_ID")
-api_key = os.getenv("API_KEY")
-api_secret = os.getenv("API_SECRET")
-
+# API SETTING
+apiToken = "5850662274:AAGeKZqM1JfQfh3CrSKG6BZ9pEvDajdBUqs"
+chatID = "1567262377"
+api_key = "hGo9QzLRDRzHknp820Npo480n62A5dEjOTBt3HXfddNrIuBXvHuibmuGcKor3b1l"
+api_secret = "1TNlq4E0ZWSvD1odE15r6uL0yRNWPiOQRr1BDifMiSpJraNIqCLLcdWhWqJJHQuL" 
 client = Client(api_key=api_key,api_secret=api_secret)
 
+# TRADING SETTING
 pair='DOGEUSDT'
 freq = '15m'
 n_bar = 10000
@@ -24,7 +19,7 @@ n1 = 65
 n2 = 95
 quantity = 100
 
-
+# MAIN
 if __name__ == '__main__':
     while True:
 
